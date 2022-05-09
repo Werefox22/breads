@@ -20,6 +20,11 @@ app.get('/', (req, res) => {
 const breadsController = require('./controllers/breads_controller.js')
 app.use('/breads', breadsController)
 
+// 404
+app.get('*', (req, res) => {
+	res.send('404')
+})
+
 // listen
 app.listen(PORT, () => {
 	console.log('nomming at port ', PORT)
