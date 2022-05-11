@@ -31,5 +31,5 @@ app.get('*', (req, res) => {
 
 // listen
 app.listen(PORT, () => {
-	console.log('nomming at port ', PORT)
+	console.log('nomming at port', PORT)
 })

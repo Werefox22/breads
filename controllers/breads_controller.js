@@ -17,10 +17,19 @@ breads.get('/new', (req, res) => {
 	res.render('new')
 })
 
+
+// edit page
+breads.get('/:arrayIndex/edit', (req, res) => {
+	res.render('edit', {
+		bread: Bread[req.params.arrayIndex],
+		index: req.params.arrayIndex
+	})
+})
+
 // show
 breads.get('/:arrayIndex', (req, res) => {
 	if (Bread[req.params.arrayIndex]) {
-		res.render('Show', {
+		res.render('show', {
 			bread: Bread[req.params.arrayIndex],
 			index: req.params.arrayIndex
 		})
