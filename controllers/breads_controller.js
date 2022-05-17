@@ -4,12 +4,15 @@ const Bread = require('../models/bread.js')
 
 // index
 breads.get('/', (req, res) => {
-	res.render('index', 
-		{
-			breads: Bread,
-			title: 'Index Page'
-		}
-	)
+	Bread.find()
+		.then(foundBreads => {
+			res.render('index', 
+			{
+				breads: foundBreads,
+				title: 'Index Page'
+			}
+		)
+	})
 })
 
 // new
@@ -18,7 +21,7 @@ breads.get('/new', (req, res) => {
 })
 
 
-// edit page
+// edit
 breads.get('/:arrayIndex/edit', (req, res) => {
 	res.render('edit', {
 		bread: Bread[req.params.arrayIndex],
