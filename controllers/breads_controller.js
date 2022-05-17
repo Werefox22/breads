@@ -37,15 +37,9 @@ breads.get('/:arrayIndex', (req, res) => {
 				bread: foundBread
 			})
 		})
-	
-	// if (Bread[req.params.arrayIndex]) {
-	// 	res.render('show', {
-	// 		bread: Bread[req.params.arrayIndex],
-	// 		index: req.params.arrayIndex
-	// 	})
-	// } else {
-	// 	res.render('404')
-	// }
+		.catch(err => {
+			res.render('404')
+		})
 })
 
 // create
