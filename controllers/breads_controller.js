@@ -5,12 +5,11 @@ const Bread = require('../models/bread.js')
 // index
 breads.get('/', (req, res) => {
 	Bread.find()
-		.then(foundBreads => {
-			res.render('index', {
-				breads: foundBreads,
-				title: 'Index Page'
-			}
-		)
+	.then(foundBreads => {
+		res.render('index', {
+			breads: foundBreads,
+			title: 'Index Page'
+		})
 	})
 })
 
@@ -99,7 +98,13 @@ breads.post('/', (req, res) => {
 
 	// push the changes to the database and redirect to the index page
 	Bread.create(req.body)
-	res.redirect('/breads')
+	.then(createdBread => {
+		res.redirect('/breads')
+	})
+	.catch(err => {
+		console.log("ERROR: ", err)
+		res.status(404).render('404')
+	})
 })
 
 // delete
