@@ -6,8 +6,7 @@ const Bread = require('../models/bread.js')
 breads.get('/', (req, res) => {
 	Bread.find()
 		.then(foundBreads => {
-			res.render('index', 
-			{
+			res.render('index', {
 				breads: foundBreads,
 				title: 'Index Page'
 			}
@@ -23,23 +22,30 @@ breads.get('/new', (req, res) => {
 
 // edit
 breads.get('/:arrayIndex/edit', (req, res) => {
-	res.render('edit', {
-		bread: Bread[req.params.arrayIndex],
-		index: req.params.arrayIndex
+	Bread.findById(req.params.arrayIndex)
+	.then(foundBread => {
+		res.render('edit', {
+			bread: foundBread
+		})
+	})
+	.catch(err => {
+		console.log("ERROR: ", err)
+		res.status(404).render('404')
 	})
 })
 
 // show
 breads.get('/:arrayIndex', (req, res) => {
 	Bread.findById(req.params.arrayIndex)
-		.then(foundBread => {
-			res.render('show', {
-				bread: foundBread
-			})
+	.then(foundBread => {
+		res.render('show', {
+			bread: foundBread
 		})
-		.catch(err => {
-			res.render('404')
-		})
+	})
+	.catch(err => {
+		console.log("ERROR: ", err)
+		res.status(404).render('404')
+	})
 })
 
 // create
@@ -64,8 +70,14 @@ breads.post('/', (req, res) => {
 
 // delete
 breads.delete('/:arrayIndex', (req, res) => {
-	Bread.splice(req.params.arrayIndex, 1)
-	res.status(303).redirect('/breads')
+	Bread.findByIdAndDelete(req.params.arrayIndex)
+	.then(deletedBread => {
+		res.status(303).redirect('/breads')
+	})
+	.catch(err => {
+		console.log('ERROR: ', err)
+		res.status(404).render('404')
+	})
 })
 
 // update
@@ -78,8 +90,14 @@ breads.put('/:arrayIndex', (req, res) => {
 	}
 
 	// push the changes to the database and redirect to the page we just edited
-	Bread[req.params.arrayIndex] = req.body
-	res.redirect(`/breads/${req.params.arrayIndex}`)
+	Bread.findByIdAndUpdate(req.params.arrayIndex, req.body)
+	.then(() => {
+		res.redirect(`/breads/${req.params.arrayIndex}`)
+	})
+	.catch(err => {
+		console.log('ERROR: ', err)
+		res.status(404).render('404')
+	})
 })
 
 module.exports = breads
