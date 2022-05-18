@@ -39,7 +39,7 @@ function New() {
 			</form>
 			<hr />
 			<div className='backButton'>
-				<a href="/breads"><button>Back</button></a>
+				<a href="/breads"><button>Cancel</button></a>
 			</div>
 		</Default>
 	)
