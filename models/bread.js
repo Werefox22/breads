@@ -14,7 +14,10 @@ const breadSchema = new Schema({
 	},
 	baker: { 
 		type: String,
-		enum: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Pheobe']
+		enum: {
+			values: ['Rachel', 'Monica', 'Joey', 'Chandler', 'Ross', 'Pheobe'],
+			message: "Error: {VALUE} is not a valid baker"
+		}
 	 }
 })
 

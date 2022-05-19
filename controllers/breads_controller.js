@@ -103,7 +103,9 @@ breads.post('/', (req, res) => {
 	})
 	.catch(err => {
 		console.log("ERROR: ", err)
-		res.status(404).render('404')
+		res.render('error', {
+			content: err
+		})
 	})
 })
 
@@ -135,7 +137,7 @@ breads.put('/:arrayIndex', (req, res) => {
 	})
 	.catch(err => {
 		console.log('ERROR: ', err)
-		res.status(404).render('404')
+		res.render('error', err)
 	})
 })
 
