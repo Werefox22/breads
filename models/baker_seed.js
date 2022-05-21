@@ -15,7 +15,7 @@ module.exports = [
 		bio: 'Does NOT share food. Recommends that you read Little Women.'
     },
     {
-		name: 'Phoebe',
+		name: 'Pheobe',
 		startDate: '1996-09-19',
 		bio: "Fierce protector of the bakery's smelly cat."
     },
