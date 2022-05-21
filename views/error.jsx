@@ -2,7 +2,6 @@ const React = require('react')
 const Default = require('./layouts/default')
 
 function error(err) {
-	console.log("PASSED IN: ", err.content)
 	return (
 		<html>
 			<Default>

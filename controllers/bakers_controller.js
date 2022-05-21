@@ -19,6 +19,22 @@ baker.get('/', (req, res) => {
 		})
 })
 
+// show
+baker.get('/:arrayIndex', (req, res) => {
+	Baker.findById(req.params.arrayIndex)
+		.populate('breads')
+		.then(foundBaker => {
+			res.render('bakerShow', {
+				baker: foundBaker
+			})
+		})
+		.catch(err => {
+			// 404 page
+			console.log("ERROR: ", err)
+			res.status(404).render('404')
+		})
+})
+
 // seed
 baker.get('/data/seed', (req, res) => {
 	Baker.insertMany(bakerSeedData)
