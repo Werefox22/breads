@@ -1,6 +1,7 @@
 const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
+const Baker = require('../models/baker.js')
 
 // index
 breads.get('/', (req, res) => {
@@ -15,7 +16,17 @@ breads.get('/', (req, res) => {
 
 // new
 breads.get('/new', (req, res) => {
-	res.render('new')
+	Baker.find()
+		.then(foundBakers => {
+			res.render('new', { bakers: foundBakers })
+		})
+		.catch(err => {
+			// Error page
+			console.log("ERROR: ", err)
+			res.render('error', {
+				content: err
+			})
+		})
 })
 
 // seed
@@ -48,8 +59,11 @@ breads.get('/data/seed', (req, res) => {
 		res.redirect('/breads')
 	})
 	.catch(err => {
+		// Error page
 		console.log("ERROR: ", err)
-		res.status(404).render('404')
+		res.render('error', {
+			content: err
+		})
 	})
 })
 
@@ -76,6 +90,7 @@ breads.get('/:arrayIndex', (req, res) => {
 		})
 	})
 	.catch(err => {
+		// 404 page
 		console.log("ERROR: ", err)
 		res.status(404).render('404')
 	})
@@ -102,6 +117,7 @@ breads.post('/', (req, res) => {
 		res.redirect('/breads')
 	})
 	.catch(err => {
+		// Error page
 		console.log("ERROR: ", err)
 		res.render('error', {
 			content: err

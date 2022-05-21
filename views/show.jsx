@@ -4,8 +4,7 @@ const Default = require('./layouts/default')
 function Show({bread}) {
 	return (
 		<Default>
-			<h2>Show Page</h2>
-			<h3>{bread.name}</h3>
+			<h2>{bread.name}</h2>
 			<p>and it 
 				{
 					bread.hasGluten
