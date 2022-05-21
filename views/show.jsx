@@ -4,6 +4,7 @@ const Default = require('./layouts/default')
 function Show({bread}) {
 	return (
 		<Default>
+			{/* CONTENT */}
 			<h2>{bread.name}</h2>
 			<p>and it 
 				{
@@ -17,8 +18,9 @@ function Show({bread}) {
 			<p>{bread.getBakedBy()}</p>
 
 			<hr />
+			{/* BUTTONS */}
 			<div className='buttons'>
-				<a href='/breads'><button>Back</button></a>
+				<a href='/breads'><button>Index</button></a>
 				<a href={`/breads/${bread.id}/edit`}><button>Edit</button></a>
 				<form action={`/breads/${bread.id}?_method=DELETE`} method='POST'>
 					<input type='submit' value='DELETE'/>

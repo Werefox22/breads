@@ -4,10 +4,32 @@ const Default = require('./layouts/Default')
 function BakerShow ({baker}) {
     return (
       <Default>
-          <h3>{baker.name}</h3>
-          <p>{baker.name} has been baking with us since {baker.startDate.getFullYear()}</p>
-          <p>About {baker.name}: {baker.bio}</p>
-          <h3>Breads {baker.name} has baked</h3>
+			<h3>{baker.name}</h3>
+			<p>{baker.name} has been baking with us since {baker.startDate.getFullYear()}</p>
+			<p>About {baker.name}: {baker.bio}</p>
+			<h3>Breads {baker.name} has baked</h3>
+			<ul>
+				{
+					baker.breads.map((bread) => {
+						return (
+							<li key={bread.id}>
+								<a href={`/breads/${bread.id}`}>{bread.name}</a>
+							</li>
+						)
+					})
+				}
+			</ul>
+
+			<hr />
+			{/* BUTTONS */}
+			<div className='buttons'>
+				<a href='/breads'><button>Index</button></a>
+				<a href={`/breads/${baker.id}/edit`}><button>Edit</button></a>
+				<form action={`/breads/${baker.id}?_method=DELETE`} method='POST'>
+					<input type='submit' value='DELETE'/>
+				</form>
+			</div>
+
       </Default>
     )
 }
