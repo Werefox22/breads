@@ -84,16 +84,17 @@ breads.get('/:arrayIndex/edit', (req, res) => {
 // show
 breads.get('/:arrayIndex', (req, res) => {
 	Bread.findById(req.params.arrayIndex)
-	.then(foundBread => {
-		res.render('show', {
-			bread: foundBread
+		.populate('baker')
+		.then(foundBread => {
+			res.render('show', {
+				bread: foundBread
+			})
 		})
-	})
-	.catch(err => {
-		// 404 page
-		console.log("ERROR: ", err)
-		res.status(404).render('404')
-	})
+		.catch(err => {
+			// 404 page
+			console.log("ERROR: ", err)
+			res.status(404).render('404')
+		})
 })
 
 // create
