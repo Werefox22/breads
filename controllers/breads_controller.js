@@ -5,13 +5,31 @@ const Baker = require('../models/baker.js')
 
 // index
 breads.get('/', (req, res) => {
-	Bread.find()
-	.then(foundBreads => {
-		res.render('index', {
-			breads: foundBreads,
-			title: 'Index Page'
+	Baker.find()
+		.then(foundBakers => {
+			Bread.find()
+			.then(foundBreads => {
+				res.render('index', {
+					breads: foundBreads,
+					bakers: foundBakers,
+					title: 'Index Page'
+				})
+			})
+			.catch(err => {
+				// Error page
+				console.log("ERROR: ", err)
+				res.render('error', {
+					content: err
+				})
+			})	
 		})
-	})
+		.catch(err => {
+			// Error page
+			console.log("ERROR: ", err)
+			res.render('error', {
+				content: err
+			})
+		})
 })
 
 // new
@@ -118,16 +136,16 @@ breads.post('/', (req, res) => {
 
 	// push the changes to the database and redirect to the index page
 	Bread.create(req.body)
-	.then(createdBread => {
-		res.redirect('/breads')
-	})
-	.catch(err => {
-		// Error page
-		console.log("ERROR: ", err)
-		res.render('error', {
-			content: err
+		.then(createdBread => {
+			res.redirect('/breads')
 		})
-	})
+		.catch(err => {
+			// Error page
+			console.log("ERROR: ", err)
+			res.render('error', {
+				content: err
+			})
+		})
 })
 
 // delete
