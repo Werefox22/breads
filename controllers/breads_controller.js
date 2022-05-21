@@ -69,16 +69,20 @@ breads.get('/data/seed', (req, res) => {
 
 // edit
 breads.get('/:arrayIndex/edit', (req, res) => {
-	Bread.findById(req.params.arrayIndex)
-	.then(foundBread => {
-		res.render('edit', {
-			bread: foundBread
+	Baker.find()
+		.then(foundBakers => {
+			Bread.findById(req.params.arrayIndex)
+			.then(foundBread => {
+				res.render('edit', {
+					bread: foundBread,
+					bakers: foundBakers
+				})
+			})
+			.catch(err => {
+				console.log("ERROR: ", err)
+				res.status(404).render('404')
+			})
 		})
-	})
-	.catch(err => {
-		console.log("ERROR: ", err)
-		res.status(404).render('404')
-	})
 })
 
 // show
