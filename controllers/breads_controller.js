@@ -6,8 +6,8 @@ const Baker = require('../models/baker.js')
 // index
 breads.get('/', async (req, res) => {
 	try {
-		foundBakers = await Baker.find()
-		foundBreads = await Bread.find()
+		foundBakers = await Baker.find().lean()
+		foundBreads = await Bread.find().limit(10).lean()
 		res.render('index', {
 			breads: foundBreads,
 			bakers: foundBakers,
