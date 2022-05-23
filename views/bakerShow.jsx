@@ -24,8 +24,8 @@ function BakerShow ({baker}) {
 			{/* BUTTONS */}
 			<div className='buttons'>
 				<a href='/breads'><button>Index</button></a>
-				<a href={`/breads/${baker.id}/edit`}><button>Edit</button></a>
-				<form action={`/breads/${baker.id}?_method=DELETE`} method='POST'>
+				<a href={`/bakers/${baker.id}/edit`}><button>Edit</button></a>
+				<form action={`/bakers/${baker.id}?_method=DELETE`} method='POST'>
 					<input type='submit' value='DELETE'/>
 				</form>
 			</div>

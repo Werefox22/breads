@@ -35,6 +35,22 @@ baker.get('/:arrayIndex', (req, res) => {
 		})
 })
 
+// delete
+baker.delete('/:arrayIndex', (req, res) => {
+	Baker.findByIdAndDelete(req.params.arrayIndex)
+		.then(deletedBaker => {
+			res.status(303).redirect('/breads')
+		})
+		.catch(err => {
+			// Error page
+			console.log("ERROR: ", err)
+			res.render('error', {
+				content: err
+			})
+		})
+})
+
+
 // seed
 baker.get('/data/seed', (req, res) => {
 	Baker.insertMany(bakerSeedData)
