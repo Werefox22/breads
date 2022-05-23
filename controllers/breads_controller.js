@@ -4,32 +4,22 @@ const Bread = require('../models/bread.js')
 const Baker = require('../models/baker.js')
 
 // index
-breads.get('/', (req, res) => {
-	Baker.find()
-		.then(foundBakers => {
-			Bread.find()
-			.then(foundBreads => {
-				res.render('index', {
-					breads: foundBreads,
-					bakers: foundBakers,
-					title: 'Index Page'
-				})
-			})
-			.catch(err => {
-				// Error page
-				console.log("ERROR: ", err)
-				res.render('error', {
-					content: err
-				})
-			})	
+breads.get('/', async (req, res) => {
+	try {
+		foundBakers = await Baker.find()
+		foundBreads = await Bread.find()
+		res.render('index', {
+			breads: foundBreads,
+			bakers: foundBakers,
+			title: 'Index Page'
 		})
-		.catch(err => {
-			// Error page
-			console.log("ERROR: ", err)
-			res.render('error', {
-				content: err
-			})
+	} catch (err) {
+		// Error page
+		console.log("ERROR: ", err)
+		res.render('error', {
+			content: err
 		})
+	}
 })
 
 // new
